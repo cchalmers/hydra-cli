@@ -9,9 +9,7 @@ let
 in
 rec {
 
-  hydra-cli = ((pkgs.callPackage ./Cargo.nix {
-    cratesIO = pkgs.callPackage ./crates-io.nix {};
-  }).hydra_cli {}).overrideDerivation(_: {
+  hydra-cli = ((callPackage ./Cargo.nix {}).rootCrate.build).overrideDerivation(_: {
     src = sources;
     doCheck = true;
     checkPhase = ''
