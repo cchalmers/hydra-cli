@@ -155,6 +155,12 @@ impl HydraClient for Client {
             Err(err) => Err(ClientError::Error(format!("{}", err))),
         }
     }
+
+    fn machines(&self) -> Result<Machines, ClientError> {
+        let request_url = format!("{}/machines", &self.host);
+        get_json(&self.client, &request_url)
+    }
+
 }
 
 #[cfg(test)]

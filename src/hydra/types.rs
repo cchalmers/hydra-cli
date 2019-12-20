@@ -1,7 +1,7 @@
 use serde::de::{self, Deserialize, Deserializer, Unexpected};
 use serde::{Serialize, Serializer};
 pub use serde_json::Value;
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Input {
@@ -150,3 +150,19 @@ pub struct ProjectConfig {
     pub enabled: bool,
     pub visible: bool,
 }
+
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Machine {
+    pub disabled: Option<i32>,
+    pub avgStepBuildTime: Option<f64>,
+    pub mandatoryFeatures: Option<Vec<String>>,
+    pub maxJobs: Option<usize>,
+    pub nrStepsDone: Option<usize>,
+    pub speedFactor: Option<usize>,
+    pub sshKeys: Option<String>,
+    pub supportedFeatures: Option<Vec<String>>,
+    pub systemTypes: Option<Vec<String>>,
+}
+
+pub type Machines = BTreeMap<String, Machine>;

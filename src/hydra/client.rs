@@ -4,7 +4,7 @@
 //! a Hydra endpoint.
 
 pub use crate::hydra::types::{
-    Build, Eval, Jobset, JobsetConfig, JobsetOverview, Project, ProjectConfig, Reproduce, Search,
+    Build, Eval, Jobset, JobsetConfig, JobsetOverview, Project, ProjectConfig, Reproduce, Search, Machines
 };
 use crate::ops::OpError;
 use serde::Serialize;
@@ -67,4 +67,7 @@ pub trait HydraClient {
 
     /// Retrieves a project given by `name`
     fn project_create(&self, name: &str) -> Result<(), ClientError>;
+
+    /// Retrieves a project given by `name`
+    fn machines(&self) -> Result<Machines, ClientError>;
 }

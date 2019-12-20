@@ -4,7 +4,7 @@ use clap::{App, Arg, SubCommand};
 use hydra_cli::hydra::example::jobset_config;
 use hydra_cli::hydra::reqwest_client::Client as ReqwestHydraClient;
 use hydra_cli::ops::{
-    jobset_create, jobset_eval, jobset_wait, project, project_create, project_list, reproduce,
+    jobset_create, jobset_eval, jobset_wait, machines, project, project_create, project_list, reproduce,
     search, OpError, OpResult,
 };
 
@@ -132,6 +132,11 @@ fn main() {
                 .after_help(config_after_help),
         )
         .subcommand(
+            SubCommand::with_name("machines")
+                .about("List the machines")
+                .arg(Arg::with_name("json").short("j").help("JSON output")),
+        )
+        .subcommand(
             SubCommand::with_name("jobset-eval")
                 .about("Evaluate a jobset")
                 .arg(
@@ -211,6 +216,18 @@ fn main() {
             args.value_of("user").unwrap(),
             args.value_of("password").unwrap(),
         ),
+
+        ("machines", Some(args)) => machines::run(
+            &client,
+            args.is_present("json"),
+        ),
+
+        // {
+        //     use crate::hydra_cli::hydra::client::HydraClient;
+        //     mach
+        //     println!("{:#?}", client.machines());
+        //     Ok(None)
+        // },
 
         ("jobset-eval", Some(args)) => jobset_eval::run(
             &client,
