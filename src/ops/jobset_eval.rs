@@ -10,7 +10,7 @@ pub fn run(
     get_eval_id: bool,
     wait_eval: bool,
 ) -> OpResult {
-    if !get_eval_id || !wait_eval {
+    if !get_eval_id && !wait_eval {
         client.jobset_eval(project_name, jobset_name)?;
         return ok_msg("jobset_eval");
     }

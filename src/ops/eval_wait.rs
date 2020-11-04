@@ -18,7 +18,7 @@ pub fn run(client: &dyn HydraClient, eval_id: u64) -> OpResult {
     let mut num_errors = 0;
     loop {
         for build_id in unfinished_builds.clone() {
-            let build = match client.build(build_id * 10) {
+            let build = match client.build(build_id) {
                 Ok(build) => build,
                 Err(err) => {
                     num_errors += 1;
