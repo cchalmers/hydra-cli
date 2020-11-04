@@ -42,7 +42,7 @@ pub trait HydraClient {
     fn search(&self, query: &str) -> Result<Search, ClientError>;
 
     /// Retrieves evaluation information for the build specified by `number`
-    fn eval(&self, number: i64) -> Result<Eval, ClientError>;
+    fn eval(&self, number: u64) -> Result<Eval, ClientError>;
 
     /// Retrieves the jobset specified by `project` / `jobset`
     fn jobset(&self, project: &str, jobset: &str) -> Result<Jobset, ClientError>;

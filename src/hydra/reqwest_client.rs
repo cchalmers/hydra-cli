@@ -91,7 +91,7 @@ impl HydraClient for Client {
         get_json(&self.client, &request_url)
     }
 
-    fn eval(&self, number: i64) -> Result<Eval, ClientError> {
+    fn eval(&self, number: u64) -> Result<Eval, ClientError> {
         let request_url = format!("{}/eval/{}", &self.host, number);
         get_json(&self.client, &request_url)
     }

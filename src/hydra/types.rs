@@ -14,7 +14,14 @@ pub struct Input {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Eval {
+    pub builds: Vec<u64>,
+    pub id: u64,
     pub jobsetevalinputs: HashMap<String, Input>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Evals {
+    pub evals: Vec<Eval>,
 }
 
 #[derive(Serialize, Deserialize, PartialEq, Debug)]
@@ -57,14 +64,14 @@ pub struct Path {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Build {
-    pub id: i64,
+    pub id: u64,
     pub project: String,
     pub drvpath: String,
     pub job: String,
     pub jobset: String,
     pub buildoutputs: HashMap<String, Path>,
     pub stoptime: i64,
-    pub jobsetevals: Vec<i64>,
+    pub jobsetevals: Vec<u64>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
