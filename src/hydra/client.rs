@@ -35,6 +35,9 @@ impl From<ClientError> for OpError {
 }
 
 pub trait HydraClient {
+    /// The host the hydra client is connected to.
+    fn host(&self) -> &str;
+
     /// Authenticates with the server using username and password provided by `Creds`
     fn login(&self, creds: Creds) -> Result<(), ClientError>;
 
@@ -46,6 +49,9 @@ pub trait HydraClient {
 
     /// Retrieves the jobset specified by `project` / `jobset`
     fn jobset(&self, project: &str, jobset: &str) -> Result<Jobset, ClientError>;
+
+    /// Retrieves build information for the build specified by `number`
+    fn build(&self, number: u64) -> Result<Build, ClientError>;
 
     /// Creates a jobset called `jobset_name` in the project `project_name` using
     /// the configuration from `jobset_config`

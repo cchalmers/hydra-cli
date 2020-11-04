@@ -65,12 +65,15 @@ pub struct Path {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Build {
     pub id: u64,
+    pub finished: u64,
+    pub buildstatus: Option<u64>,
+    pub nixname: String,
     pub project: String,
     pub drvpath: String,
     pub job: String,
     pub jobset: String,
     pub buildoutputs: HashMap<String, Path>,
-    pub stoptime: i64,
+    pub stoptime: Option<i64>,
     pub jobsetevals: Vec<u64>,
 }
 

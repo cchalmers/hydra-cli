@@ -51,6 +51,10 @@ fn get_json<T: DeserializeOwned>(client: &ReqwestClient, url: &str) -> Result<T,
 }
 
 impl HydraClient for Client {
+    fn host(&self) -> &str {
+        &self.host
+    }
+
     fn project_create(&self, name: &str) -> Result<(), ClientError> {
         let create_proj_url = format!("{}/project/{}", &self.host, name);
         let proj: ProjectConfig = ProjectConfig {
@@ -93,6 +97,11 @@ impl HydraClient for Client {
 
     fn eval(&self, number: u64) -> Result<Eval, ClientError> {
         let request_url = format!("{}/eval/{}", &self.host, number);
+        get_json(&self.client, &request_url)
+    }
+
+    fn build(&self, number: u64) -> Result<Build, ClientError> {
+        let request_url = format!("{}/build/{}", &self.host, number);
         get_json(&self.client, &request_url)
     }
 
