@@ -144,6 +144,11 @@ impl HydraClient for Client {
         }
     }
 
+    fn jobset_evals(&self, project: &str, jobset: &str) -> Result<Evals, ClientError> {
+        let request_url = format!("{}/jobset/{}/{}/evals", &self.host, project, jobset);
+        get_json(&self.client, &request_url)
+    }
+
     fn login(&self, creds: Creds) -> Result<(), ClientError> {
         let login_request_url = format!("{}/login", &self.host);
         let login_res = self

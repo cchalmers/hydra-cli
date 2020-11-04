@@ -4,7 +4,8 @@
 //! a Hydra endpoint.
 
 pub use crate::hydra::types::{
-    Build, Eval, Jobset, JobsetConfig, JobsetOverview, Project, ProjectConfig, Reproduce, Search,
+    Build, Eval, Evals, Jobset, JobsetConfig, JobsetOverview, Project, ProjectConfig, Reproduce,
+    Search,
 };
 use crate::ops::OpError;
 use serde::{Deserialize, Serialize};
@@ -64,6 +65,9 @@ pub trait HydraClient {
 
     /// Evaluate a jobset called `jobset_name` in the project `project_name`
     fn jobset_eval(&self, project_name: &str, jobset_name: &str) -> Result<(), ClientError>;
+
+    /// Get the evaluations of a jobset
+    fn jobset_evals(&self, project: &str, jobset: &str) -> Result<Evals, ClientError>;
 
     /// Retrieves information on all jobsets belonging to `project`
     fn jobset_overview(&self, project: &str) -> Result<Vec<JobsetOverview>, ClientError>;

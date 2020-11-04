@@ -146,6 +146,16 @@ fn main() {
                     Arg::with_name("jobset")
                         .required(true)
                         .help("The jobset to evaluate"),
+                )
+                .arg(
+                    Arg::with_name("get-id")
+                        .long("get-id")
+                        .help("get the id of "),
+                )
+                .arg(
+                    Arg::with_name("wait")
+                        .long("wait")
+                        .help("Wait for the evaluation to finish"),
                 ),
         )
         .subcommand(
@@ -234,6 +244,8 @@ fn main() {
             &client,
             args.value_of("project").unwrap(),
             args.value_of("jobset").unwrap(),
+            args.is_present("get-id"),
+            args.is_present("wait"),
         ),
 
         ("jobset-wait", Some(args)) => jobset_wait::run(
