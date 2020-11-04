@@ -1,3 +1,4 @@
+pub mod eval_wait;
 pub mod jobset_create;
 pub mod jobset_eval;
 pub mod jobset_wait;

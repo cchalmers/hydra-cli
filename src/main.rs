@@ -7,8 +7,8 @@ use std::time::Duration;
 use hydra_cli::hydra::example::jobset_config;
 use hydra_cli::hydra::reqwest_client::Client as ReqwestHydraClient;
 use hydra_cli::ops::{
-    jobset_create, jobset_eval, jobset_wait, project, project_create, project_list, reproduce,
-    search, OpError, OpResult,
+    eval_wait, jobset_create, jobset_eval, jobset_wait, project, project_create, project_list,
+    reproduce, search, OpError, OpResult,
 };
 
 fn main() {
@@ -149,6 +149,15 @@ fn main() {
                 ),
         )
         .subcommand(
+            SubCommand::with_name("eval-wait")
+                .about("Wait for eval completion")
+                .arg(
+                    Arg::with_name("eval-id")
+                        .required(true)
+                        .help("The project of the jobset to wait for"),
+                ),
+        )
+        .subcommand(
             SubCommand::with_name("jobset-wait")
                 .about("Wait for jobset completion")
                 .arg(
@@ -233,6 +242,11 @@ fn main() {
             args.value_of("jobset").unwrap(),
             args.value_of("timeout")
                 .map(|t| Duration::from_secs(u64::from_str(t).unwrap())),
+        ),
+
+        ("eval-wait", Some(args)) => eval_wait::run(
+            &client,
+            u64::from_str(args.value_of("eval-id").unwrap()).unwrap(),
         ),
 
         _ => {
